@@ -1703,7 +1703,14 @@
             
             isAnswered = true;
         }
-
+function scrollToScenario() {
+    const container = document.getElementById('scenario-container');
+    if (!container) return;
+    const headerEl = document.querySelector('.header');
+    const headerHeight = headerEl ? headerEl.offsetHeight : 0;
+    const y = container.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+}
         function nextScenario() {
             if (!isAnswered) {
                 alert('Пожалуйста, выберите вариант ответа перед продолжением!');
