@@ -1792,8 +1792,13 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.difficulty-btn').classList.add('selected');
-        });
+    const first = document.querySelector('.difficulty-btn');
+    if (first) {
+        first.classList.add('selected');
+        document.getElementById('start-btn').disabled = false;
+        selectedScenariosCount = 10;
+    }
+});
 
         window.addEventListener('resize', function() {
             if (window.innerWidth < 768) {
