@@ -1703,7 +1703,7 @@
             
             isAnswered = true;
         }
-function scrollToScenario() {
+    function scrollToScenario() {
     const container = document.getElementById('scenario-container');
     if (!container) return;
     const headerEl = document.querySelector('.header');
@@ -1721,7 +1721,7 @@ function scrollToScenario() {
                 currentScenario++;
                 document.getElementById('current-scenario').textContent = currentScenario;
                 initScenario(currentScenario);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                scrollToScenario();
             } else {
                 showResults();
             }
