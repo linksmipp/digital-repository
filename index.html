@@ -1728,18 +1728,19 @@
         }
 
         function restartScenario() {
-            const scenario = currentScenarios[currentScenario - 1];
-            score -= scenario.difficulty === 'easy' ? 5 : scenario.difficulty === 'medium' ? 10 : 15;
-            if (score < 0) score = 0;
-            correctAnswers--;
-            if (correctAnswers < 0) correctAnswers = 0;
-            
-            document.getElementById('score').textContent = score;
-            document.getElementById('correct-count').textContent = correctAnswers;
-            initScenario(currentScenario);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!isAnswered) return;
+    
+    const scenario = currentScenarios[currentScenario - 1];
+    score -= scenario.difficulty === 'easy' ? 5 : scenario.difficulty === 'medium' ? 10 : 15;
+    if (score < 0) score = 0;
+    correctAnswers--;
+    if (correctAnswers < 0) correctAnswers = 0;
+    
+    document.getElementById('score').textContent = score;
+    document.getElementById('correct-count').textContent = correctAnswers;
+    initScenario(currentScenario);
+    scrollToScenario();
         }
-
         function updateProgress() {
             const progress = (currentScenario / totalScenarios) * 100;
             document.getElementById('progress-fill').style.width = `${progress}%`;
