@@ -1544,6 +1544,7 @@
         let selectedOptionIndex = -1;
         let isAnswered = false;
         let currentScenarios = [];
+        let scoredScenarios = new Set();
 
         function selectScenarioCount(count) {
             selectedScenariosCount = count;
@@ -1689,11 +1690,12 @@
             document.getElementById(`consequences-text-${scenarioNum}`).textContent = option.consequences;
             document.getElementById(`advice-text-${scenarioNum}`).textContent = option.advice;
             
-            if (option.correct) {
-                score += scenario.difficulty === 'easy' ? 5 : scenario.difficulty === 'medium' ? 10 : 15;
-                correctAnswers++;
-                document.getElementById('score').textContent = score;
-                document.getElementById('correct-count').textContent = correctAnswers;
+            if (option.correct && !scoredScenarios.has(scenario.id)) {
+    score += scenario.difficulty === 'easy' ? 5 : scenario.difficulty === 'medium' ? 10 : 15;
+    correctAnswers++;
+    scoredScenarios.add(scenario.id);
+    document.getElementById('score').textContent = score;
+    document.getElementById('correct-count').textContent = correctAnswers;
             }
             
             setTimeout(() => {
@@ -1730,15 +1732,6 @@
 
         function restartScenario() {
     if (!isAnswered) return;
-    
-    const scenario = currentScenarios[currentScenario - 1];
-    score -= scenario.difficulty === 'easy' ? 5 : scenario.difficulty === 'medium' ? 10 : 15;
-    if (score < 0) score = 0;
-    correctAnswers--;
-    if (correctAnswers < 0) correctAnswers = 0;
-    
-    document.getElementById('score').textContent = score;
-    document.getElementById('correct-count').textContent = correctAnswers;
     initScenario(currentScenario);
     scrollToScenario();
         }
